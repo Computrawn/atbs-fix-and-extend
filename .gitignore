@@ -5,3 +5,8 @@
 venv
 credentials*.json
 logging.txt
+*.png
+*.jpg
+*.bmp
+*.gif
+/with_logo
