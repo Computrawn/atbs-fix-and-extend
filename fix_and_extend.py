@@ -31,7 +31,7 @@ for filename in os.listdir("."):
             or filename == LOGO_FILENAME
         ):
             continue
-        logging.info(filename)
+        # logging.info(filename)
         img = Image.open(filename)
         width, height = img.size
 
@@ -46,12 +46,15 @@ for filename in os.listdir("."):
                 height = SQUARE_FIT_SIZE
 
             # Resize the image.
-            print(f"Resizing {filename}")
+            logging.info("Resizing %s", (filename))
             img = img.resize((width, height))
 
         # Add the logo.
-        print(f"Adding logo to {filename} ...")
-        img.paste(logo_img, (width - logo_width, height - logo_height), logo_img)
+        if width >= logo_width * 2 or height >= logo_height * 2:
+            logging.info("Adding logo to %s ...", (filename))
+            img.paste(logo_img, (width - logo_width, height - logo_height), logo_img)
 
         # Save changes.
-        img.save(os.path.join("with_logo", filename))
+            img.save(os.path.join("with_logo", filename))
+        else:
+            logging.info("Did not change add logo to %s because of size restriction.", (filename))
